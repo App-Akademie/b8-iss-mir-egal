@@ -6,7 +6,9 @@ import 'database_repository.dart';
 // Wir verwenden erstmal eine einfache private Liste (_meals), um unsere "Datenbank" zu mocken.
 
 class MockDatabase implements DatabaseRepository {
-  final List<Meal> _meals = [];
+  final List<Meal> _meals = [
+    Meal(title: 'Pizza', cuisine: 'italian', location: 'Um die Ecke', price: 12)
+  ];
 
   // fügt unserer Liste ein Meal hinzu
   @override
