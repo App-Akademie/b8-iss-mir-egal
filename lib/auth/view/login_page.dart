@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iss_mir_egal/gen/assets.gen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +25,9 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              Assets.images.logo.image(
+                height: 200,
+              ),
               Text(
                 'Einloggen',
                 style: TextTheme.of(context).headlineLarge,
