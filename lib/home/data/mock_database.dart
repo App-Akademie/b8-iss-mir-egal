@@ -1,3 +1,5 @@
+import 'package:iss_mir_egal/home/data/meals.mock.dart';
+
 import '../models/meal.dart';
 import 'database_repository.dart';
 
@@ -7,7 +9,7 @@ import 'database_repository.dart';
 
 class MockDatabase implements DatabaseRepository {
   final List<Meal> _meals = [
-    Meal(title: 'Pizza', cuisine: 'italian', location: 'Um die Ecke', price: 12)
+    ...meals,
   ];
 
   // fügt unserer Liste ein Meal hinzu
