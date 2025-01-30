@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iss_mir_egal/auth/view/signup_page.dart';
 import 'package:iss_mir_egal/gen/assets.gen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,19 +19,21 @@ class _LoginPageState extends State<LoginPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
+          child: ListView(
             children: [
-              Assets.images.logo.image(
-                height: 200,
+              Hero(
+                tag: 'app_icon',
+                child: Assets.images.logo.image(
+                  height: 200,
+                ),
               ),
               Text(
                 'Einloggen',
                 style: TextTheme.of(context).headlineLarge,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 24,
@@ -63,7 +66,24 @@ class _LoginPageState extends State<LoginPage> {
               FilledButton(
                 onPressed: () {},
                 child: Text('Einloggen'),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Noch keinen Account?',
+                textAlign: TextAlign.center,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => SignupPage(),
+                    ),
+                  );
+                },
+                child: Text('Account erstellen'),
+              ),
             ],
           ),
         ),
