@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iss_mir_egal/auth/view/login_page.dart';
 import 'package:iss_mir_egal/gen/assets.gen.dart';
+import 'package:iss_mir_egal/home/view/home_page.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -61,7 +62,15 @@ class _SignupPageState extends State<SignupPage> {
                 height: 24,
               ),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(
+                        meals: [],
+                      ),
+                    ),
+                  );
+                },
                 child: Text('Account erstellen'),
               ),
               SizedBox(
