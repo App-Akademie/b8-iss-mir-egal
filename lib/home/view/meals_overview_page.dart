@@ -18,7 +18,10 @@ class MealsOverviewPage extends StatelessWidget {
       mainAxisSpacing: 8,
       children: [
         // show meals
-        for (final meal in meals) MealCard(meal: meal)
+        // normale for schleife benutzeb
+        for (final meal in meals) MealCard(meal: meal),
+        // oder: .map funktion auf einer Liste aufrufen:
+        // ...meals.map((e) => MealCard(meal: e)),
       ],
     );
   }
