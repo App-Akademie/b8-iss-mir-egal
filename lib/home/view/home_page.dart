@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iss_mir_egal/home/models/meal.dart';
+import 'package:iss_mir_egal/home/view/meals_overview_page.dart';
+import 'package:iss_mir_egal/home/view/profile_page.dart';
 import 'package:iss_mir_egal/home/widgets/meal_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,19 +14,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      MealsOverviewPage(meals: widget.meals),
+      ProfilePage(),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Iss mir egal'),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        children: [
-          // show meals
-          for (final meal in widget.meals) MealCard(meal: meal)
+      body: pages[activeIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: activeIndex,
+        onTap: (value) => setState(() {
+          activeIndex = value;
+        }),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profil',
+          ),
         ],
       ),
     );

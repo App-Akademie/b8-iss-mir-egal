@@ -146,7 +146,7 @@ final List<Meal> meals = [
     cuisine: 'Middle Eastern',
     location: 'Oasis Grill',
     price: 8,
-    imageUrl: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f',
+    imageUrl: 'https://images.unsplash.com/photo-1619535860434-ba1d8fa12536',
   ),
   Meal(
     title: 'Clam Chowder',
