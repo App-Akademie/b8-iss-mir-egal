@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iss_mir_egal/home/models/meal.dart';
 import 'package:iss_mir_egal/home/view/meals_overview_page.dart';
 import 'package:iss_mir_egal/home/view/profile_page.dart';
+import 'package:iss_mir_egal/home/view/suggestion_page.dart';
 import 'package:iss_mir_egal/home/widgets/meal_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      MealsOverviewPage(meals: widget.meals),
+      SuggestionPage(allMeals: widget.meals),
       ProfilePage(),
     ];
     return Scaffold(
