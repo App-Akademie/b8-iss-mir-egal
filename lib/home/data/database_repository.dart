@@ -1,3 +1,5 @@
+import 'package:iss_mir_egal/home/models/user.dart';
+
 import '../models/meal.dart';
 
 // Unser abstraktes Database Repository

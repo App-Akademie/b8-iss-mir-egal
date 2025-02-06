@@ -4,26 +4,29 @@ import 'package:iss_mir_egal/styles/app_colors.dart';
 
 class AppTheme {
   ThemeData get theme => ThemeData(
-        textTheme: GoogleFonts.urbanistTextTheme().copyWith(),
-        primaryColor: AppColors.primaryColor,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: AppColors.primaryColor,
-          unselectedItemColor: AppColors.grey,
-          selectedItemColor: AppColors.white,
+      textTheme: GoogleFonts.urbanistTextTheme().copyWith(),
+      primaryColor: AppColors.primaryColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.primaryColor,
+        unselectedItemColor: AppColors.grey,
+        selectedItemColor: AppColors.white,
+      ),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+        foregroundColor: WidgetStateColor.resolveWith(
+          (_) => AppColors.primaryColor,
         ),
-        textButtonTheme: TextButtonThemeData(
-            style: ButtonStyle(
-          foregroundColor: WidgetStateColor.resolveWith(
-            (_) => AppColors.primaryColor,
-          ),
-        )),
-        filledButtonTheme: FilledButtonThemeData(
-            style: ButtonStyle(
-          backgroundColor: WidgetStateColor.resolveWith(
-            (_) => AppColors.primaryColor,
-          ),
-        )),
-      );
+      )),
+      filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: WidgetStateColor.resolveWith(
+          (_) => AppColors.primaryColor,
+        ),
+      )),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: AppColors.white,
+      ));
   ThemeData get darkTheme => ThemeData(
         brightness: Brightness.dark,
         textTheme: GoogleFonts.urbanistTextTheme().copyWith(),

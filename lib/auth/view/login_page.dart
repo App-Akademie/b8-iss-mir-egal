@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iss_mir_egal/auth/view/signup_page.dart';
 import 'package:iss_mir_egal/gen/assets.gen.dart';
+import 'package:iss_mir_egal/home/data/meals_controller.dart';
+import 'package:iss_mir_egal/home/models/meal.dart';
 import 'package:iss_mir_egal/home/view/home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({required this.mealsController, super.key});
+  final MealsController mealsController;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -69,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => HomePage(
-                        meals: [],
+                        mealsController: widget.mealsController,
                       ),
                     ),
                   );
@@ -87,7 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => SignupPage(),
+                      builder: (context) => SignupPage(
+                        mealsController: widget.mealsController,
+                      ),
                     ),
                   );
                 },

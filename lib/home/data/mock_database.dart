@@ -1,4 +1,5 @@
 import 'package:iss_mir_egal/home/data/meals.mock.dart';
+import 'package:iss_mir_egal/home/models/user.dart';
 
 import '../models/meal.dart';
 import 'database_repository.dart';
