@@ -13,6 +13,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final _formKey = GlobalKey<FormState>();
+
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -38,26 +40,51 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(
                 height: 24,
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                obscureText: _isObscure,
-                decoration: InputDecoration(
-                  labelText: 'Passwort',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isObscure ? Icons.visibility : Icons.visibility_off,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Email'),
+                      validator: (value) {
+                        final expression = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                        if (expression.hasMatch(value ?? '')) {
+                          // value entspricht unserem regex pattern -> email ist valide!
+                          return null;
+                        } else {
+                          // value entspricht nicht unserem regex pattern -> keine valide email!
+                          return 'Keine valide Email';
+                        }
+                      },
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    },
-                  ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      obscureText: _isObscure,
+                      validator: (value) {
+                        return (value?.length ?? 0) > 7
+                            ? null
+                            : 'Passwort muss mindestens 8 Zeichen lang sein';
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Passwort',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -65,13 +92,18 @@ class _SignupPageState extends State<SignupPage> {
               ),
               FilledButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(
-                        mealsController: widget.mealsController,
+                  if (_formKey.currentState!.validate()) {
+                    // form ist valide
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(
+                          mealsController: widget.mealsController,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    // form ist nicht valide
+                  }
                 },
                 child: Text('Account erstellen'),
               ),

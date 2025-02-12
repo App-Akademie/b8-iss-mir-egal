@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     print('das hier wird aufgerufen, wenn dieses widget aufgeräumt wird');
     emailController.dispose();
-    // passwordController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
