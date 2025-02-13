@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:iss_mir_egal/auth/view/login_page.dart';
 import 'package:iss_mir_egal/gen/assets.gen.dart';
@@ -14,8 +16,11 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   bool _isObscure = true;
+
+  String? _errorMessage;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -91,16 +96,23 @@ class _SignupPageState extends State<SignupPage> {
                 height: 24,
               ),
               FilledButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     // form ist valide
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(
-                          mealsController: widget.mealsController,
+                    final isSignupSuccessful = await signup();
+                    if (isSignupSuccessful) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            mealsController: widget.mealsController,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      setState(() {
+                        _errorMessage = 'Ups hier hat etwas nicht geklappt';
+                      });
+                    }
                   } else {
                     // form ist nicht valide
                   }
@@ -126,10 +138,44 @@ class _SignupPageState extends State<SignupPage> {
                 },
                 child: Text('Zum Login'),
               ),
+              if (_isLoading)
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              if (_errorMessage != null)
+                Text(
+                  _errorMessage!,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Colors.red,
+                      ),
+                  textAlign: TextAlign.center,
+                )
             ],
           ),
         ),
       ),
     );
+  }
+
+  // Ausführung durch Button-Klick
+  Future<bool> signup() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    // wir simulieren eine wartezeit von X sekunden, in der realität wäre das eine server anfrage
+    final res = await _mockServerRequest();
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    return res;
+  }
+
+  Future<bool> _mockServerRequest() {
+    // später tauschen wir das gegen einen echten server request aus
+    return Future.delayed(Duration(seconds: 4), () => false);
   }
 }
