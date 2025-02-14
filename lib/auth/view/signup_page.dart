@@ -165,7 +165,11 @@ class _SignupPageState extends State<SignupPage> {
     });
 
     // wir simulieren eine wartezeit von X sekunden, in der realität wäre das eine server anfrage
-    final res = await _mockServerRequest();
+    final res = await _mockServerRequest().catchError((error) {
+      // e ist unsere exception die wir bekommen, in dem fall: timeoutexception
+      print('exception: $error');
+      return false;
+    });
 
     setState(() {
       _isLoading = false;
@@ -176,6 +180,11 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<bool> _mockServerRequest() {
     // später tauschen wir das gegen einen echten server request aus
-    return Future.delayed(Duration(seconds: 4), () => false);
+    return Future.delayed(
+      Duration(seconds: 4),
+      () => false,
+    ).timeout(
+      Duration(seconds: 1),
+    );
   }
 }
