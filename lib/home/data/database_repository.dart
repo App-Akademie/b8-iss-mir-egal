@@ -7,13 +7,13 @@ import '../models/meal.dart';
 // Die eigentliche Logik der einzelnen Methoden geschieht dann in den spezifischen Klassen, nicht hier
 abstract class DatabaseRepository {
 // Fügt ein Meal hinzu
-  void addMeal(Meal meal);
+  Future<void> addMeal(Meal meal);
   // gibt uns eine Liste an Meals zurück
-  List<Meal> getMeals();
+  Future<List<Meal>> getMeals();
 
   // Löscht ein meal
-  void deleteMeal(Meal meal);
+  Future<void> deleteMeal(Meal meal);
 
   // Updated ein Meal (oldMeal) mit einem neuen (newMeal)
-  void updateMeal(Meal oldMeal, Meal newMeal);
+  Future<void> updateMeal(Meal oldMeal, Meal newMeal);
 }

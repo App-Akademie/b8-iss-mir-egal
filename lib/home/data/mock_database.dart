@@ -1,5 +1,4 @@
 import 'package:iss_mir_egal/home/data/meals.mock.dart';
-import 'package:iss_mir_egal/home/models/user.dart';
 
 import '../models/meal.dart';
 import 'database_repository.dart';
@@ -15,25 +14,25 @@ class MockDatabase implements DatabaseRepository {
 
   // fügt unserer Liste ein Meal hinzu
   @override
-  void addMeal(Meal meal) {
+  Future<void> addMeal(Meal meal) async {
     _meals.add(meal);
   }
 
 // Löscht ein Meal aus unserer Liste
   @override
-  void deleteMeal(Meal meal) {
+  Future<void> deleteMeal(Meal meal) async {
     _meals.remove(meal);
   }
 
 // gibt uns unsere Liste _meals zurück
   @override
-  List<Meal> getMeals() {
-    return _meals;
+  Future<List<Meal>> getMeals() {
+    return Future.delayed(Duration(seconds: 3), () => _meals);
   }
 
 // ändert ein Meal
   @override
-  void updateMeal(Meal oldMeal, Meal newMeal) {
+  Future<void> updateMeal(Meal oldMeal, Meal newMeal) async {
     if (_meals.contains(oldMeal)) {
       final index = _meals.indexOf(oldMeal);
       _meals[index] = newMeal;

@@ -7,9 +7,11 @@ class MealsOverviewPage extends StatefulWidget {
   const MealsOverviewPage({
     super.key,
     required this.mealsController,
+    required this.meals,
   });
 
   final MealsController mealsController;
+  final List<Meal> meals;
 
   @override
   State<MealsOverviewPage> createState() => _MealsOverviewPageState();
@@ -19,27 +21,18 @@ class _MealsOverviewPageState extends State<MealsOverviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: widget.mealsController.getAllMealsFuture(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            }
-            return GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              children: [
-                // show meals
-                // normale for schleife benutzen
-                for (final meal in snapshot.data!) MealCard(meal: meal),
-                // oder: .map funktion auf einer Liste aufrufen:
-                // ...meals.map((e) => MealCard(meal: e)),
-              ],
-            );
-          }),
+      body: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        children: [
+          // show meals
+          // normale for schleife benutzen
+          for (final meal in widget.meals) MealCard(meal: meal),
+          // oder: .map funktion auf einer Liste aufrufen:
+          // ...meals.map((e) => MealCard(meal: e)),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {

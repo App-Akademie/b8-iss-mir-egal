@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iss_mir_egal/home/data/meals.mock.dart';
+
 import 'package:iss_mir_egal/home/data/meals_controller.dart';
 
 import 'package:iss_mir_egal/home/models/meal.dart';
@@ -18,12 +18,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int activeIndex = 0;
+  List<Meal> _meals = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getMeals();
+  }
+
+  Future<void> getMeals() async {
+    _meals = await widget.mealsController.getAllMeals();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      SuggestionPage(allMeals: widget.mealsController.getAllMeals()),
-      MealsOverviewPage(mealsController: widget.mealsController),
+      SuggestionPage(allMeals: _meals),
+      MealsOverviewPage(
+        mealsController: widget.mealsController,
+        meals: _meals,
+      ),
       ProfilePage(),
     ];
     return Scaffold(
